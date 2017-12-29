@@ -1,14 +1,81 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>TicketCoin</ion-title>
   </ion-navbar>
+
+
+  <ion-toolbar no-border-top>
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-searchbar color="primary"
+                   [(ngModel)]="queryText"
+                   (ionInput)="updateEvent()"
+                   placeholder="Search">
+    </ion-searchbar>
+  </ion-toolbar>
+
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<!-- search result -->
+<ion-content padding [hidden]="queryText.length == 0">
+
+  <div *ngIf="searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-list #eventList [hidden]="events.length == 0">
+    <ion-item-sliding *ngFor="let event of events" #slidingItem >
+        <button ion-item (click)="goToEventDetail(event)">
+          <h3>{{event.title}}</h3>
+          <p>
+            {{event.title}} &mdash;
+            {{event.title}}:
+            {{event.title}}
+          </p>
+        </button>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list-header [hidden]="events.length > 0">
+      No Events Found
+  </ion-list-header>
+
+</ion-content>
+
+
+<!-- home content -->
+<ion-content padding [hidden]="queryText.length > 0"  class="card-background-page">
+ <ion-card>
+    <img src="assets/img/concert.jpg"/>
+    <div class="card-title">Concerts</div>
+    <div class="card-subtitle">10 Proposal</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/art-gallery.jpg"/>
+    <div class="card-title">Art gallery</div>
+    <div class="card-subtitle">11 proposal</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/theatre.jpg"/>
+    <div class="card-title">Theatre</div>
+    <div class="card-subtitle">12 proposal</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/img/museum.jpg"/>
+    <div class="card-title">Museum</div>
+    <div class="card-subtitle">11 proposal</div>
+  </ion-card>
+
 </ion-content>
