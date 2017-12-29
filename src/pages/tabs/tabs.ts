@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 
 import { HomePage } from '../home/home';
@@ -11,10 +12,21 @@ import { ScannerPage } from '../scanner/scanner';
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = ListPage;
-  tab3Root = ScannerPage;
+  tab5Root = ScannerPage;
 
-  constructor() {
+  constructor(private barcodeScanner: BarcodeScanner) {
 
   }
+
+
+public scanQR()
+{
+  this.barcodeScanner.scan().then(
+  (barcodeData) => {
+         console.log("Scanned successfully!");
+      console.log(barcodeData);
+  }, (err) => {
+      console.log(err);
+  });
+}
 }
