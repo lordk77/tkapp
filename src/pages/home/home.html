@@ -13,12 +13,14 @@
 
     <ion-searchbar color="primary"
                    [(ngModel)]="queryText"
-                   (ionInput)="updateEvent()"
+                   (ionInput)="updateEvents()"
                    placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>
 
 </ion-header>
+
+
 
 <!-- search result -->
 <ion-content padding [hidden]="queryText.length == 0">
@@ -30,11 +32,11 @@
   <ion-list #eventList [hidden]="events.length == 0">
     <ion-item-sliding *ngFor="let event of events" #slidingItem >
         <button ion-item (click)="goToEventDetail(event)">
-          <h3>{{event.title}}</h3>
+          <h3>{{event.name}}</h3>
           <p>
-            {{event.title}} &mdash;
-            {{event.title}}:
-            {{event.title}}
+            {{event.name}} &mdash;
+            {{event.name}}:
+            {{event.name}}
           </p>
         </button>
 
@@ -50,28 +52,44 @@
 
 <!-- home content -->
 <ion-content padding [hidden]="queryText.length > 0"  class="card-background-page">
- <ion-card>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+ <ion-card (click)="filterByCategory('MUSIC')">
     <img src="assets/img/concert.jpg"/>
-    <div class="card-title">Concerts</div>
-    <div class="card-subtitle">10 Proposal</div>
+    <div class="card-title">Music</div>
+    <div class="card-subtitle">{{eventService.getEventCategoryCount("MUSIC")}} Proposal</div>
   </ion-card>
 
   <ion-card>
     <img src="assets/img/art-gallery.jpg"/>
-    <div class="card-title">Art gallery</div>
-    <div class="card-subtitle">11 proposal</div>
+    <div class="card-title">Art</div>
+    <div class="card-subtitle">{{eventService.getEventCategoryCount("ART")}} proposal</div>
   </ion-card>
 
   <ion-card>
     <img src="assets/img/theatre.jpg"/>
     <div class="card-title">Theatre</div>
-    <div class="card-subtitle">12 proposal</div>
+    <div class="card-subtitle">{{eventService.getEventCategoryCount("THEATRE")}} proposal</div>
   </ion-card>
 
   <ion-card>
     <img src="assets/img/museum.jpg"/>
     <div class="card-title">Museum</div>
-    <div class="card-subtitle">11 proposal</div>
+    <div class="card-subtitle">{{eventService.getEventCategoryCount("MUSEUM")}} proposal</div>
   </ion-card>
+
+  <ion-card>
+    <img src="assets/img/sport.jpg"/>
+    <div class="card-title">Sport</div>
+    <div class="card-subtitle">{{eventService.getEventCategoryCount("SPORT")}} proposal</div>
+  </ion-card>
+  
 
 </ion-content>

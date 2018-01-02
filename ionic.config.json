@@ -1,8 +1,14 @@
 {
-  "name": "MyIonicProjectBlank",
+  "name": "TkApp",
   "app_id": "",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+	{
+	"path": "/rest",
+	"proxyUrl": "http://10.1.0.27:8080/tkadmin/rest"
+	}
+	]
 }

@@ -1,9 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
+import { AlertController, App, List, ModalController, NavController, ToastController, LoadingController } from 'ionic-angular';
 import { UserData } from '../../providers/user-data/user-data';
 
-import { DataProvider } from '../../providers/data/data';
+import { EventProvider } from '../../providers/event/event';
+import { Event } from '../../models/event';
+
+
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-home',
@@ -22,7 +26,7 @@ export class HomePage {
 
   queryText = '';
   shownEvents: any = [];
-  events: any = [];
+  events: Event[]=[];
 
   constructor(
       public alertCtrl: AlertController,
@@ -32,7 +36,7 @@ export class HomePage {
       public navCtrl: NavController,
       public toastCtrl: ToastController,
       public user: UserData,
-      public dataService : DataProvider,
+      public eventService : EventProvider,
   ) {
   }
 
@@ -41,15 +45,58 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.app.setTitle('Event');
-    this.updateEvent();
+	this.eventService.refreshEvents();
+  }
+  
+  updateEvents()
+  {
+    this.events = this.eventService.filterItems(this.queryText);
+  }
+  
+  filterByCategory(selectedCategory)
+  {
+	  this.queryText=selectedCategory;
+	  this.events = this.eventService.filterItemsByCategory(selectedCategory);
   }
 
-  updateEvent() {
+  
+  
+   doRefresh(refresher) {
+
     // Close any open sliding items when the event updates
     this.eventList && this.eventList.closeSlidingItems();
-    this.events = this.dataService.filterItems(this.queryText);
+	
+	console.log('Begin async operation', refresher);
+
+	
+	this.eventService.refreshEvents().subscribe((resp) => {
+      refresher.complete();
+    }, (err) => {
+      refresher.complete();
+      let toast = this.toastCtrl.create({
+        message: 'error',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
+    });
+	
+	
+	
+	
+	
+	
+	
   }
 
+  
+  goToEventDetail(_event)
+  {
+	  this.navCtrl.push('ItemDetailsPage', {
+      event: _event
+    });
+  }
+  
 
 
 }
