@@ -28,6 +28,9 @@ export class HomePage {
   shownEvents: any = [];
   events: Event[]=[];
 
+   eventCategories: any = [];
+
+
   constructor(
       public alertCtrl: AlertController,
       public app: App,
@@ -46,6 +49,8 @@ export class HomePage {
   ionViewDidLoad() {
     this.app.setTitle('Event');
 	this.eventService.refreshEvents();
+	this.eventCategories = this.eventService.getEventCategories();
+console.log('this.eventCategories:' + this.eventCategories);
   }
   
   updateEvents()
@@ -53,11 +58,7 @@ export class HomePage {
     this.events = this.eventService.filterItems(this.queryText);
   }
   
-  filterByCategory(selectedCategory)
-  {
-	  this.queryText=selectedCategory;
-	  this.events = this.eventService.filterItemsByCategory(selectedCategory);
-  }
+
 
   
   
@@ -74,7 +75,7 @@ export class HomePage {
     }, (err) => {
       refresher.complete();
       let toast = this.toastCtrl.create({
-        message: 'error',
+        message: err,
         duration: 3000,
         position: 'top'
       });
@@ -95,8 +96,27 @@ export class HomePage {
 	  this.navCtrl.push('ItemDetailsPage', {
       event: _event
     });
+	this.queryText='';
+  }
+
+  goToEventListByCategory(selectedCategory)
+  {
+	  this.navCtrl.push('ListPage', {
+      filter: selectedCategory,
+	  filterType: 'CATEGORY',
+    });
   }
   
+  goToEventListByQuery()
+  {
+	  this.navCtrl.push('ListPage', {
+      filter: this.queryText,
+	  filterType: 'QUERY',
+    });
+	this.queryText='';
+  }
+
+
 
 
 }

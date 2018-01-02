@@ -3,17 +3,17 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My First List</ion-title>
+    <ion-title>Events list</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.name}}
+    <button ion-item *ngFor="let event of events" (click)="itemTapped($event, event)">
+      <ion-icon name="{{event.icon}}" item-left></ion-icon>
+      {{event.name}}
       <div class="item-note" item-right>
-        {{item.note}}
+        {{event.note}}
       </div>
     </button>
   </ion-list>

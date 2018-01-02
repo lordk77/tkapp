@@ -7,8 +7,8 @@ import { Http } from '@angular/http';
  */
 @Injectable()
 export class Api {
-  //url: string = 'http://10.1.0.27:8080/tkadmin/rest';
-  url: string = 'http://localhost:8100/rest';
+  url: string = 'http://10.1.0.27:8080/tkadmin/rest';
+  //url: string = 'http://localhost:8100/rest';
 
   constructor(public http: Http) {
   }

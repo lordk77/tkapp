@@ -74,7 +74,8 @@ export function provideSettings(storage: Storage) {
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: AccountPage, name: 'AccountPage', segment: 'account' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' },
-        { component: ItemDetailsPage, name: 'ItemDetailsPage', segment: 'detail' }
+        { component: ItemDetailsPage, name: 'ItemDetailsPage', segment: 'detail' },
+        { component: ListPage, name: 'ListPage', segment: 'list' }
       ]
     }),
     IonicStorageModule.forRoot()

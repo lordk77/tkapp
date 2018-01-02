@@ -15,8 +15,22 @@ export class EventProvider {
 
   items: any;
 
+	eventCategories : any;
+
+
+
   constructor(public api: Api) {
      this.items = [{"ticketCategories":[{"description":"test","price":123.00,"currency":"EUR"}],"eventCategories":["ART","THEATRE","MUSIC"],"name":"test","description":"test","organizationId":1}]
+	this.eventCategories =
+			[
+				{id:"MUSIC", title:"Music", img:"assets/img/concert.jpg"},
+				{id:"ART", title:"Art", img:"assets/img/art-gallery.jpg"},
+				{id:"THEATRE", title:"Theatre", img:"assets/img/THEATRE.jpg"},
+				{id:"MUSEUM", title:"Museum", img:"assets/img/museum.jpg"},
+				{id:"SPORT", title:"Sport", img:"assets/img/sport.jpg"}
+			];
+
+
 		}
 
 
@@ -46,7 +60,7 @@ export class EventProvider {
 			console.log("description: " + data.length);
 			this.items = data;
 		}, err => {
-		  console.error('ERROR', err);
+		  console.error('ERRORz', err.currentTarget);
 		});
 		
 		return seq;
@@ -63,4 +77,9 @@ export class EventProvider {
         }).length;
 	}
 
+
+getEventCategories(){
+	return this.eventCategories;
 }
+}
+

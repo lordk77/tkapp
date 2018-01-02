@@ -61,35 +61,12 @@
     </ion-refresher-content>
   </ion-refresher>
   
- <ion-card (click)="filterByCategory('MUSIC')">
-    <img src="assets/img/concert.jpg"/>
-    <div class="card-title">Music</div>
-    <div class="card-subtitle">{{eventService.getEventCategoryCount("MUSIC")}} Proposal</div>
+ <ion-card *ngFor="let category of eventCategories" (click)="goToEventListByCategory(category.id)" >
+    <img src="{{category.img}}"/>
+    <div class="card-title">{{category.title}}</div>
+    <div class="card-subtitle">{{eventService.getEventCategoryCount(category.id)}} Proposal</div>
   </ion-card>
 
-  <ion-card>
-    <img src="assets/img/art-gallery.jpg"/>
-    <div class="card-title">Art</div>
-    <div class="card-subtitle">{{eventService.getEventCategoryCount("ART")}} proposal</div>
-  </ion-card>
-
-  <ion-card>
-    <img src="assets/img/theatre.jpg"/>
-    <div class="card-title">Theatre</div>
-    <div class="card-subtitle">{{eventService.getEventCategoryCount("THEATRE")}} proposal</div>
-  </ion-card>
-
-  <ion-card>
-    <img src="assets/img/museum.jpg"/>
-    <div class="card-title">Museum</div>
-    <div class="card-subtitle">{{eventService.getEventCategoryCount("MUSEUM")}} proposal</div>
-  </ion-card>
-
-  <ion-card>
-    <img src="assets/img/sport.jpg"/>
-    <div class="card-title">Sport</div>
-    <div class="card-subtitle">{{eventService.getEventCategoryCount("SPORT")}} proposal</div>
-  </ion-card>
   
 
 </ion-content>
