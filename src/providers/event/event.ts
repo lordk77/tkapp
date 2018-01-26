@@ -20,7 +20,7 @@ export class EventProvider {
 
 
   constructor(public api: Api) {
-     this.items = [{"ticketCategories":[{"description":"test","price":123.00,"currency":"EUR"}],"eventCategories":["ART","THEATRE","MUSIC"],"name":"test","description":"test","organizationId":1}]
+     this.items = [{"ticketCategories":[{"description":"test","price":123.00,"currency":"EUR"}],"eventCategories":["ART","THEATRE","MUSIC"],"name":"test","description":"test","organizationId":1,"eventUUID":"1"}]
 	this.eventCategories =
 			[
 				{id:"MUSIC", title:"Music", img:"assets/img/concert.jpg"},
@@ -47,26 +47,26 @@ export class EventProvider {
 			else return [];
         });
     }
-	
 
-	
+
+
 	refreshEvents()
 	{
 		var params=[];
 		let seq = this.api.get('event/list/0', params).map(res => res.json());
-		
+
 		seq.subscribe(data => {
 			console.log(data);
 			console.log("description: " + data.length);
 			this.items = data;
 		}, err => {
-		  console.error('ERRORz', err.currentTarget);
+		  console.error('ERROR', err.currentTarget);
 		});
-		
+
 		return seq;
 	}
-	
-	
+
+
 
 	getEventCategoryCount(selectedCategory)
 	{
@@ -76,6 +76,15 @@ export class EventProvider {
 			else return [];
         }).length;
 	}
+
+	getEventByUUID(eventUUID)
+  {
+    return this.items.filter((item) => {
+      if(item.eventUUID)
+        return item.eventUUID==eventUUID;
+      else return [];
+    });
+  }
 
 
 getEventCategories(){

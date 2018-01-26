@@ -3,5 +3,5 @@
   <ion-tab [root]="tab2Root" tabTitle="Schedule" tabIcon="calendar"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Scan" tabIcon="camera" (ionSelect)="scanQR()"></ion-tab>
   <ion-tab [root]="tab4Root" tabTitle="NearMe" tabIcon="pin"></ion-tab>
-  <ion-tab [root]="tab5Root" tabTitle="Tickes" tabIcon="pricetags"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="Tickes" [tabBadge]="ticketCountBadge"  tabIcon="pricetags"></ion-tab>
 </ion-tabs>

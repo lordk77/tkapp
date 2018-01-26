@@ -21,8 +21,8 @@ import { SignupPage } from '../pages/signup/signup';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { SupportPage } from '../pages/support/support';
-
-
+import { MyTickets } from '../pages/my-tickets/my-tickets';
+import { TicketDetailPage } from '../pages/ticket-detail/ticket-detail';
 
 
 
@@ -30,7 +30,8 @@ import { UserData } from '../providers/user-data/user-data';
 import { EventProvider } from '../providers/event/event';
 import { Settings } from '../providers/providers';
 import { Api } from '../providers/providers';
-
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { TicketProvider } from '../providers/ticket/ticket';
 
 export function provideSettings(storage: Storage) {
   /**
@@ -60,12 +61,16 @@ export function provideSettings(storage: Storage) {
     SignupPage,
     AccountPage,
     LoginPage,
-    SupportPage
+    SupportPage,
+    MyTickets,
+    TicketDetailPage
+
   ],
   imports: [
     BrowserModule,
 	HttpModule,
 	HttpClientModule,
+	NgxQRCodeModule,
     IonicModule.forRoot(MyApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
@@ -75,7 +80,10 @@ export function provideSettings(storage: Storage) {
         { component: AccountPage, name: 'AccountPage', segment: 'account' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' },
         { component: ItemDetailsPage, name: 'ItemDetailsPage', segment: 'detail' },
-        { component: ListPage, name: 'ListPage', segment: 'list' }
+        { component: ListPage, name: 'ListPage', segment: 'list' },
+        { component: MyTickets, name: 'MyTickets', segment: 'my-tickets' },
+        { component: TicketDetailPage, name: 'TicketDetailPage', segment: 'ticket-detail' },
+
       ]
     }),
     IonicStorageModule.forRoot()
@@ -92,7 +100,9 @@ export function provideSettings(storage: Storage) {
     SignupPage,
     AccountPage,
     LoginPage,
-    SupportPage
+    SupportPage,
+    MyTickets,
+    TicketDetailPage
   ],
   providers: [
 	Api,
@@ -101,6 +111,7 @@ export function provideSettings(storage: Storage) {
     BarcodeScanner,
     UserData,
     EventProvider,
+    TicketProvider,
 	{ provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     {provide: ErrorHandler, useClass: IonicErrorHandler}
