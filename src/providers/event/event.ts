@@ -79,10 +79,10 @@ export class EventProvider {
 
 	getEventByUUID(eventUUID)
   {
+
     return this.items.filter((item) => {
       if(item.eventUUID)
         return item.eventUUID==eventUUID;
-      else return [];
     });
   }
 

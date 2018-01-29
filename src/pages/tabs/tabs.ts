@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 
@@ -7,22 +8,29 @@ import { ListPage } from '../list/list';
 import { ScannerPage } from '../scanner/scanner';
 import { SchedulerPage } from '../scheduler/scheduler';
 
-import {Events, NavController, ToastController} from "ionic-angular";
+import {Events, App, NavController, ToastController, Nav} from "ionic-angular";
 import {TicketProvider} from "../../providers/ticket/ticket";
 import {MyTickets} from "../my-tickets/my-tickets";
 import {EventProvider} from "../../providers/event/event";
+
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
+ @ViewChild(Nav) nav: Nav;
+
+
   tab1Root = HomePage;
   tab2Root = SchedulerPage;
+  tab3Root = ScannerPage;
   tab5Root = MyTickets;
   ticketsCount : number = 0; // default 0
   ticketCountBadge='';
-  constructor(private barcodeScanner: BarcodeScanner, public events: Events, public ticketService : TicketProvider,
+  constructor(private barcodeScanner: BarcodeScanner,
+              public app: App,
+              public events: Events, public ticketService : TicketProvider,
               public navCtrl: NavController, public  eventService:EventProvider,
               public toastCtrl: ToastController) {
 
@@ -71,15 +79,28 @@ public scanQR()
   this.barcodeScanner.scan().then(
   (barcodeData) => {
          console.log("Scanned successfully!");
-      console.log(barcodeData);
-
-    var eventInfo = JSON.parse(barcodeData.text);
-    if(this.eventService.getEventByUUID(eventInfo.eventUUID) && this.eventService.getEventByUUID(eventInfo.eventUUID).length>0)
-      this.goToEventDetail(this.eventService.getEventByUUID(eventInfo.eventUUID)[0]);
-    else
+      console.log(barcodeData.text);
+    try
     {
-      let toast = this.toastCtrl.create({
-        message: 'Event not found',
+      var eventInfo = JSON.parse(barcodeData.text);
+      console.log(this.eventService.getEventByUUID(eventInfo.eventUUID) && this.eventService.getEventByUUID(eventInfo.eventUUID).length>0);
+      if(this.eventService.getEventByUUID(eventInfo.eventUUID) && this.eventService.getEventByUUID(eventInfo.eventUUID).length>0)
+        this.goToEventDetail(this.eventService.getEventByUUID(eventInfo.eventUUID)[0]);
+      else
+      {
+        let toast = this.toastCtrl.create({
+          message: 'Event not found',
+          duration: 3000,
+          position: 'top'
+        });
+        toast.present();
+      }
+    }
+    catch(Exception)
+    {
+    console.log(''+Exception);
+    let toast = this.toastCtrl.create({
+        message: 'Invalid code:'+Exception,
         duration: 3000,
         position: 'top'
       });
@@ -95,7 +116,7 @@ public scanQR()
 
   goToEventDetail(_event)
   {
-    this.navCtrl.push('ItemDetailsPage', {
+  	  this.nav.getActiveChildNavs()[0].push('ItemDetailsPage', {
       event: _event
     });
   }
