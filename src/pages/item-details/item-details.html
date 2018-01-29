@@ -10,13 +10,36 @@
 <ion-content>
   <h3 text-center *ngIf="selectedEvent">
     {{selectedEvent.name}}
-    <ion-icon [name]="selectedEvent.icon"></ion-icon>
   </h3>
-  <h4 text-center *ngIf="selectedEvent">
-    You navigated here from <b>{{selectedEvent.name}}</b>
-  </h4>
+
+  <h6 text-center *ngIf="selectedEvent">
+    {{selectedEvent.description}}
+  </h6>
+  <ion-img src=" {{selectedEvent.img}}"></ion-img>
 
 
-  <button ion-button block color="secondary" (click)="buyTicket()" >Buy ticket</button>
+
+
+
+
+  <ion-list>
+    <ion-item>
+      Full price
+      <button ion-button outline item-end icon-left (click)="buyTicket()">
+        <ion-icon name="ios-card"></ion-icon>
+        10.00 EUR
+      </button>
+    </ion-item>
+
+    <ion-item>
+      Full price
+      <button ion-button outline item-end icon-left (click)="buyTicket()">
+        <ion-icon name="logo-bitcoin"></ion-icon>
+        0.001 BTC
+      </button>
+    </ion-item>
+
+  </ion-list>
+
 
 </ion-content>

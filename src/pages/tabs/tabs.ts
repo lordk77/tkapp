@@ -5,6 +5,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { HomePage } from '../home/home';
 import { ListPage } from '../list/list';
 import { ScannerPage } from '../scanner/scanner';
+import { SchedulerPage } from '../scheduler/scheduler';
+
 import {Events, NavController, ToastController} from "ionic-angular";
 import {TicketProvider} from "../../providers/ticket/ticket";
 import {MyTickets} from "../my-tickets/my-tickets";
@@ -16,6 +18,7 @@ import {EventProvider} from "../../providers/event/event";
 export class TabsPage {
 
   tab1Root = HomePage;
+  tab2Root = SchedulerPage;
   tab5Root = MyTickets;
   ticketsCount : number = 0; // default 0
   ticketCountBadge='';

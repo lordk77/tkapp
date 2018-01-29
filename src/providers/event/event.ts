@@ -20,7 +20,7 @@ export class EventProvider {
 
 
   constructor(public api: Api) {
-     this.items = [{"ticketCategories":[{"description":"test","price":123.00,"currency":"EUR"}],"eventCategories":["ART","THEATRE","MUSIC"],"name":"test","description":"test","organizationId":1,"eventUUID":"1"}]
+     this.items = [{"ticketCategories":[{"description":"Full price","price":10.00,"currency":"EUR"}],"eventCategories":["ART","MUSEUM"],"name":"Parco Archeologico di Ostia Antica","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum","organizationId":1,"eventUUID":"1","img":"assets/evt-img/ostia_antica.jpg"}]
 	this.eventCategories =
 			[
 				{id:"MUSIC", title:"Music", img:"assets/img/concert.jpg"},

@@ -7,7 +7,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-
+import { NgCalendarModule  } from 'ionic2-calendar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,6 +32,7 @@ import { Settings } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { TicketProvider } from '../providers/ticket/ticket';
+import {SchedulerPage} from "../pages/scheduler/scheduler";
 
 export function provideSettings(storage: Storage) {
   /**
@@ -63,7 +64,8 @@ export function provideSettings(storage: Storage) {
     LoginPage,
     SupportPage,
     MyTickets,
-    TicketDetailPage
+    TicketDetailPage,
+    SchedulerPage
 
   ],
   imports: [
@@ -71,6 +73,7 @@ export function provideSettings(storage: Storage) {
 	HttpModule,
 	HttpClientModule,
 	NgxQRCodeModule,
+    NgCalendarModule,
     IonicModule.forRoot(MyApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
@@ -83,6 +86,8 @@ export function provideSettings(storage: Storage) {
         { component: ListPage, name: 'ListPage', segment: 'list' },
         { component: MyTickets, name: 'MyTickets', segment: 'my-tickets' },
         { component: TicketDetailPage, name: 'TicketDetailPage', segment: 'ticket-detail' },
+        { component: SchedulerPage, name: 'CalendarPage', segment: 'calendar' },
+
 
       ]
     }),
@@ -102,7 +107,8 @@ export function provideSettings(storage: Storage) {
     LoginPage,
     SupportPage,
     MyTickets,
-    TicketDetailPage
+    TicketDetailPage,
+    SchedulerPage
   ],
   providers: [
 	Api,
@@ -112,6 +118,7 @@ export function provideSettings(storage: Storage) {
     UserData,
     EventProvider,
     TicketProvider,
+
 	{ provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     {provide: ErrorHandler, useClass: IonicErrorHandler}

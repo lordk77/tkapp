@@ -17,7 +17,7 @@ export class TicketProvider {
   tickets: any;
 
   constructor(public api: Api) {
-     this.tickets = [{"name":"test","description":"test","ticketUUID":1}]
+     this.tickets = [{"name":"Parco archeologico di ostia antica","description":"Ingresso intero","ticketUUID":1}]
 		}
 
 
